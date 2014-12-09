@@ -1,3 +1,14 @@
 Reflections
 
-The 
+--------------
+| Safe macro |
+--------------
+
+Assuming the variable is a reference to a object with the interface closeable. The value from the method/function call has to be evaluated before the function can be closed. But the value from the function should also be returned, and the function has to be evaluated last for that to happen. A macro does this a lot easier than a function (OBS! "A macro does this and a function does not" om det inte är möjligt att göra detta med en funktion).
+
+
+------------------
+| SQL-like macro |
+------------------
+
+Possible to write a function instead? Maybe. Hardly believe it would be readable.
