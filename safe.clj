@@ -1,10 +1,10 @@
 (defmacro safe [variable form]
 	;`(let [locVar# variable] 
-	`(let ~variable
+	`(let ~variable 
+		(do ~form;)
 		(if (instance? java.io.Closeable (get ~variable 0))
-			~form
-			; Exception!!!!
-		)
+			(.close (get ~variable 0))
+		))
 	)
 )
 
