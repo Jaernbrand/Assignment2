@@ -18,19 +18,22 @@
 	)	
 )
 
-(defn extractColumns [table & keys]
-	(let [retTable# #{}]
-		(conj retTable# (extractRowValues (first table) keys))
-		(if ( > (count table) 1) 
-			(extractColumns (rest table))
+(defn extractColumns [table keys]
+	(if ( > (count table) 1) 
+		(set 
+			(concat
+				(conj #{} (extractRowValues (first table) keys))
+				(extractColumns (rest table) keys)
+			)
 		)
-	retTable#
+
+		(conj #{} (extractRowValues (first table) keys))
 	)
 )
 
 (defmacro select [keys from table & args]
 	`(let [t# (~from ~table)]
-		(extractColumns t#, keys)
+		(extractColumns t# keys)
 	)
 )
 
