@@ -5,35 +5,35 @@
 	)
 )
 
-(defn extractRowValues [row keys]
+(defn extractRowValues [row selKeys]
 	(let [extRow {}] 
-		(if ( > (count keys) 1)
+		(if ( > (count selKeys) 1)
 			(conj
-				(assoc extRow (first keys) (get row (first keys)))	
-				(conj extRow (extractRowValues row (rest keys)))
+				(assoc extRow (first selKeys) (get row (first selKeys)))	
+				(conj extRow (extractRowValues row (rest selKeys)))
 			)
 			
-			(assoc extRow (first keys) (get row (first keys)))	
+			(assoc extRow (first selKeys) (get row (first selKeys)))	
 		)
 	)	
 )
 
-(defn extractColumns [table keys]
+(defn extractColumns [table selKeys]
 	(if ( > (count table) 1) 
 		(set 
 			(concat
-				(conj #{} (extractRowValues (first table) keys))
-				(extractColumns (rest table) keys)
+				(conj #{} (extractRowValues (first table) selKeys))
+				(extractColumns (rest table) selKeys)
 			)
 		)
 
-		(conj #{} (extractRowValues (first table) keys))
+		(conj #{} (extractRowValues (first table) selKeys))
 	)
 )
 
-(defmacro select [keys from table & args]
+(defmacro select [k from table & args]
 	`(let [t# (~from ~table)]
-		(extractColumns t# keys)
+		(extractColumns t# ~k)
 	)
 )
 
