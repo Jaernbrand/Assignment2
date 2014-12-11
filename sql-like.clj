@@ -44,16 +44,8 @@
 ;;where
 (defn where [kw op limit table] ;;keyword operator limit table
 	(if(= op "notEqual") 				 ;;(filterByValue :id < 3 persons)
-<<<<<<< HEAD
-		(filter #(not=(kw %) limit) table) 
-		(filter #(op (kw %) limit) table) 
-||||||| merged common ancestors
-		(println (filter #(not=(kw %) limit) table) )
-		(println (filter #(op (kw %) limit) table) )
-=======
 		(filter #(not=(kw %) limit) table)
 		(filter #(op (kw %) limit) table)
->>>>>>> a359c387ca9ff222e17603981412c23784877a70
 	)
 )	
 
