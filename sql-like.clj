@@ -1,4 +1,4 @@
-(def <> "notEqual") ;;definition
+(def <> "notEqual")
 
 ;;from
 (defmacro from [table]
@@ -32,20 +32,24 @@
 			)
 		)
 
-		(conj #{} (extractRowValues (first table) selKeys))
+		(set(conj #{} (extractRowValues (first table) selKeys)))
 	)
 )
 
 ;;orderby
 (defn orderby [table orderCol]
-	(sort-by orderCol table)
+	(sorted-set(sort-by orderCol table))
 )
 
 ;;where
-(defn where [kw op limit table] ;;keyword operator limit table
-	(if(= op "notEqual") 				 ;;(filterByValue :id < 3 persons)
-		(filter #(not=(kw %) limit) table)
-		(filter #(op (kw %) limit) table)
+(defmacro where [kw opList table] ;;keyword opList table
+	`(let[op1#(first ~(vec opList))]
+		(let[op2#(last ~(vec opList))]
+			(if(= op1# "notEqual") 	
+				(set (filter #(not= (~kw %) op2#) ~table))
+				(set (filter #(op1# (~kw %) op2#) ~table))
+			)
+		)
 	)
 )	
 
@@ -67,7 +71,7 @@
 	([columns from table where col opList]
 		`(let [tbl# (~from ~table)]
 			(do 
-				(extractColumns tbl# ~columns)
+				(where ~col ~opList (extractColumns tbl# ~columns))
 			)
 		)
 	)
@@ -75,8 +79,9 @@
 	([columns from table where col opList ordr ordrCol]
 		`(let [tbl# (~from ~table)]
 			(do 
-				(~ordr (extractColumns tbl# ~columns) ~ordrCol)
+				(~ordr (where ~col ~opList (extractColumns tbl# ~columns)) ~ordrCol)
 			)
 		)
 	)
 )
+	
