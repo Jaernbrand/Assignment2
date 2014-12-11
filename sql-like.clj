@@ -31,6 +31,10 @@
 	)
 )
 
+(defn orderby [table orderCol]
+	(sort-by orderCol table)
+)
+
 (defmacro select [k from table & args]
 	`(let [t# (~from ~table)]
 		(extractColumns t# ~k)
