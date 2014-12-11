@@ -32,13 +32,20 @@
 			)
 		)
 
-		(set(conj #{} (extractRowValues (first table) selKeys)))
+		(set (conj #{} (extractRowValues (first table) selKeys)))
 	)
 )
 
 ;;orderby
 (defn orderby [table orderCol]
-	(sorted-set(sort-by orderCol table))
+	(into (sorted-set-by 
+		(fn [lhs rhs] 
+			(if (compare (get lhs orderCol) (get rhs orderCol))
+				1 
+				-1
+			)
+		)) 
+	(sort-by orderCol table))
 )
 
 ;;where
