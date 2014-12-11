@@ -64,6 +64,14 @@
 		)
 	)
 
+	([columns from table where col opList]
+		`(let [tbl# (~from ~table)]
+			(do 
+				(extractColumns tbl# ~columns)
+			)
+		)
+	)
+
 	([columns from table where col opList ordr ordrCol]
 		`(let [tbl# (~from ~table)]
 			(do 
