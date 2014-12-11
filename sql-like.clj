@@ -35,9 +35,16 @@
 	(sort-by orderCol table)
 )
 
-(defmacro select [k from table & args]
-	`(let [t# (~from ~table)]
-		(extractColumns t# ~k)
+(defmacro select ([columns from table]
+		`(let [tbl# (~from ~table)]
+			(extractColumns tbl# ~columns)
+		)
+	) 
+	([columns from table where col opList ordr ordrCol]
+		`(let [tbl# (~from ~table)]
+			(do 
+				(~ordr (extractColumns tbl# ~columns) ~ordrCol)
+			)
+		)
 	)
 )
-
