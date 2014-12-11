@@ -4,7 +4,7 @@ Reflections
 | Safe macro |
 --------------
 
-Assuming the variable is a reference to a object with the interface closeable. The function in the parameter form has to be evaluated before the object can be closed. But the value from the function should also be returned, and the function has to be evaluated last for that to happen. The function also need the object defined in the parameter variable to work. A macro makes this possible. A function with the same structure would not behave as desired. The form parameter would not be able to be evaluated since it needs the object defined in the parameter variable. The macro in contrast does not evaluate it's formparameter until after the object is defined and accesseable.
+Assuming the variable is a reference to a object with the interface closeable. The function in the parameter form has to be evaluated before the object can be closed. But the value from the function should also be returned, and the function has to be evaluated last for that to happen. The function also need the object defined in the parameter variable to work. A macro makes this possible. A function with the same structure would not behave as desired. The form parameter would not be able to be evaluated since it needs the object defined in the parameter variable. The macro in contrast does not evaluate its form parameter until after the object is defined and accesseable.
 
 The parameters in a function is evaluated and then passed to the function body. In a macro the parameters does not get evaluated as they get passed.
 
