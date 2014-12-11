@@ -44,8 +44,8 @@
 ;;where
 (defn where [kw op limit table] ;;keyword operator limit table
 	(if(= op "notEqual") 				 ;;(filterByValue :id < 3 persons)
-		(println (filter #(not=(kw %) limit) table) )
-		(println (filter #(op (kw %) limit) table) )
+		(filter #(not=(kw %) limit) table) 
+		(filter #(op (kw %) limit) table) 
 	)
 )	
 
