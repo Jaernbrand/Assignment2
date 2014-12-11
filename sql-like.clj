@@ -1,3 +1,6 @@
+(def <> "notEqual") ;;definition
+
+;;from
 (defmacro from [table]
 	`(if (set? ~table)
 		(do ~table)
@@ -5,6 +8,7 @@
 	)
 )
 
+;;extractRowValues
 (defn extractRowValues [row selKeys]
 	(let [extRow {}] 
 		(if ( > (count selKeys) 1)
@@ -18,6 +22,7 @@
 	)	
 )
 
+;;extractColumns
 (defn extractColumns [table selKeys]
 	(if ( > (count table) 1) 
 		(set 
@@ -31,10 +36,20 @@
 	)
 )
 
+;;orderby
 (defn orderby [table orderCol]
 	(sort-by orderCol table)
 )
 
+;;where
+(defn where [kw op limit table] ;;keyword operator limit table
+	(if(= op "notEqual") 				 ;;(filterByValue :id < 3 persons)
+		(println (filter #(not=(kw %) limit) table) )
+		(println (filter #(op (kw %) limit) table) )
+	)
+)	
+
+;;select
 (defmacro select ([columns from table]
 		`(let [tbl# (~from ~table)]
 			(extractColumns tbl# ~columns)
