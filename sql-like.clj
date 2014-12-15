@@ -40,12 +40,9 @@
 (defn orderby [table orderCol]
 	(into (sorted-set-by 
 		(fn [lhs rhs] 
-			(if (compare (get lhs orderCol) (get rhs orderCol))
-				1 
-				-1
-			)
+			(compare (get lhs orderCol) (get rhs orderCol))
 		)) 
-	(sort-by orderCol table))
+	table)
 )
 
 ;;where
